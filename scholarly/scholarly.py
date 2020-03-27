@@ -28,6 +28,7 @@ _CITATIONAUTH = '/citations?user={0}&hl=en'
 _CITATIONPUB = '/citations?view_op=view_citation&citation_for_view={0}'
 _KEYWORDSEARCH = '/citations?view_op=search_authors&hl=en&mauthors=label:{0}'
 _PUBSEARCH = '/scholar?q={0}'
+_PUBSEARCHDATEORDER = '/scholar?q={0}&scisbd=1'
 _SCHOLARPUB = '/scholar?oi=bibs&hl=en&cites={0}'
 
 _CITATIONAUTHRE = r'user=([\w-]*)'
@@ -320,6 +321,11 @@ def search_pubs_query(query):
     soup = _get_soup(_HOST+url)
     return _search_scholar_soup(soup)
 
+def search_pubs_query_date_order(query):
+    """Search by scholar query and return a generator of Publication objects, ordered by date of publication"""
+    url = _PUBSEARCHDATEORDER.format(requests.utils.quote(query))
+    soup = _get_soup(_HOST+url)
+    return _search_scholar_soup(soup)
 
 def search_author(name):
     """Search by author name and return a generator of Author objects"""
